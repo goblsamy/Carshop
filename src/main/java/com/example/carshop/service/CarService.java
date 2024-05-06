@@ -4,6 +4,7 @@ import com.example.carshop.domain.Car;
 import com.example.carshop.domain.Garage;
 import com.example.carshop.dto.CarInfo;
 import com.example.carshop.dtoű.CarCreateCommand;
+import com.example.carshop.exceptionhandling.CarNotFoundException;
 import com.example.carshop.repository.CarRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class CarService {
     private Car findById(Integer id) {
         Optional<Car> carOptional = carRepository.findById(id.longValue());
         if (carOptional.isEmpty()) {
-            //TODO Throw Exception.
+            throw new CarNotFoundException(id);
         }
         return carOptional.get();
     }
