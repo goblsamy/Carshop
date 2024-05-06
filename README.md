@@ -1,0 +1,1 @@
+A CarShop egy saját projekt, melynék célja a SpringBoot keretrenszer használatának gyakorlása. Alapvetően garazsak és benne lévő autók az entitások. Folyamatosan bővítem a programot, különböző API-kat implementálva.
