@@ -1,4 +1,4 @@
-package com.example.carshop.dtoű;
+package com.example.carshop.dto;
 
 import com.example.carshop.domain.CarType;
 import lombok.AllArgsConstructor;
