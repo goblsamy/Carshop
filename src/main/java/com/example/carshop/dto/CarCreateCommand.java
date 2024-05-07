@@ -18,7 +18,7 @@ public class CarCreateCommand {
     @NotBlank(message = "Name cannot be blank.")
     private String carName;
 
-    @NotNull
+    @NotNull(message = "Cannot be null.")
     private Integer garageId;
 
 
