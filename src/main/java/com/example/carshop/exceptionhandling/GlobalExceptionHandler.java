@@ -33,4 +33,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(List.of(validationError), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(GarageNotFoundException.class)
+    public ResponseEntity<List<ValidationError>> handleGarageNotFoundException(GarageNotFoundException exception) {
+        ValidationError validationError = new ValidationError("garageId",
+                "Garage not found with id: " + exception.getGarageId());
+        log.error("Error in validation: " + validationError.getField() + ": " + validationError.getErrorMessage());
+        return new ResponseEntity<>(List.of(validationError), HttpStatus.BAD_REQUEST);
+    }
+
 }

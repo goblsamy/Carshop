@@ -1,5 +1,6 @@
 package com.example.carshop.controller;
 
+import com.example.carshop.domain.CarType;
 import com.example.carshop.dto.CarInfo;
 import com.example.carshop.dto.CarCreateCommand;
 import com.example.carshop.service.CarService;
@@ -29,7 +30,6 @@ public class CarController {
         log.info("Http request, POST / /api/car, with command: " + command);
         CarInfo carInfo = carService.saveCar(command);
         return new ResponseEntity<>(carInfo, HttpStatus.CREATED);
-
     }
 
     @GetMapping
@@ -44,5 +44,19 @@ public class CarController {
         log.info("HTTP request, GET / /api/car/{carId} with variable: " + id);
         CarInfo carInfo = carService.getById(id);
         return new ResponseEntity<>(carInfo, HttpStatus.OK);
+    }
+
+    @GetMapping("/type")
+    public ResponseEntity<List<CarInfo>> getByType(@RequestParam(value = "type", required = false) CarType carType) {
+        log.info("HTTP request, GET / /api/car/type with parameter genre: " + carType);
+        List<CarInfo> cars = carService.findByType(carType);
+        return new ResponseEntity<>(cars, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{carId}")
+    public ResponseEntity<Void> deleteById(@PathVariable("carId") Integer id) {
+        log.info("HTTP request, DELETE / /api/car/{carId} with variable: " + id);
+        carService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

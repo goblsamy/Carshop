@@ -4,6 +4,7 @@ import com.example.carshop.domain.Garage;
 import com.example.carshop.dto.CarInfo;
 import com.example.carshop.dto.GarageCreateCommand;
 import com.example.carshop.dto.GarageInfo;
+import com.example.carshop.exceptionhandling.GarageNotFoundException;
 import com.example.carshop.repository.GarageRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,11 +62,19 @@ public class GarageService {
         return garageInfos;
     }
 
+    public GarageInfo getById(Integer id) {
+        return modelMapper.map(findGarageById(id), GarageInfo.class);
+    }
+
     public Garage findGarageById(Integer garageId) {
         Optional<Garage> byId = garageRepository.findById(garageId.longValue());
         if (byId.isEmpty()) {
-            //TODO Throw Exception.
+            throw new GarageNotFoundException(garageId);
         }
         return byId.get();
+    }
+
+    public void delete(Integer id) {
+        garageRepository.delete(findGarageById(id));
     }
 }

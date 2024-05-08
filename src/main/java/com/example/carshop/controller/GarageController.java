@@ -36,4 +36,19 @@ public class GarageController {
         List<GarageInfo> garageInfos = garageService.listGarages();
         return new ResponseEntity<>(garageInfos, HttpStatus.OK);
     }
+
+    @GetMapping("/{garageId}")
+    public ResponseEntity<GarageInfo> findById(@PathVariable("garageId") Integer id) {
+        log.info("Http request, GET / /api/garage/{garageId} with variable: " + id);
+        GarageInfo garageInfo = garageService.getById(id);
+        return new ResponseEntity<>(garageInfo, HttpStatus.OK);
+
+    }
+
+    @DeleteMapping("/{garageId}")
+    public ResponseEntity<GarageInfo> delete(@PathVariable("garageId") Integer id) {
+        log.info("Http request, DELETE / /api/garage/{id} with variable: " + id);
+        garageService.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

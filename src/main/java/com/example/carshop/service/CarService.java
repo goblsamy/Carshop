@@ -1,6 +1,7 @@
 package com.example.carshop.service;
 
 import com.example.carshop.domain.Car;
+import com.example.carshop.domain.CarType;
 import com.example.carshop.domain.Garage;
 import com.example.carshop.dto.CarInfo;
 import com.example.carshop.dto.CarCreateCommand;
@@ -57,5 +58,16 @@ public class CarService {
             throw new CarNotFoundException(id);
         }
         return carOptional.get();
+    }
+
+    public void delete(Integer id) {
+        carRepository.delete(findById(id));
+    }
+
+    public List<CarInfo> findByType(CarType carType) {
+        List<Car> carList = carRepository.findByCarType(carType);
+        return carList.stream()
+                .map(car -> modelMapper.map(car, CarInfo.class))
+                .collect(Collectors.toList());
     }
 }
