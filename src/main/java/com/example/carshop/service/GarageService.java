@@ -19,6 +19,8 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class GarageService {
+
+    @Autowired
     private GarageRepository garageRepository;
 
     private ModelMapper modelMapper;
