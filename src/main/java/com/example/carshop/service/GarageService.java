@@ -4,6 +4,7 @@ import com.example.carshop.domain.Garage;
 import com.example.carshop.dto.CarInfo;
 import com.example.carshop.dto.GarageCreateCommand;
 import com.example.carshop.dto.GarageInfo;
+import com.example.carshop.dto.GarageUpdateCommand;
 import com.example.carshop.exceptionhandling.GarageNotFoundException;
 import com.example.carshop.repository.GarageRepository;
 import org.modelmapper.ModelMapper;
@@ -78,5 +79,11 @@ public class GarageService {
 
     public void delete(Integer id) {
         garageRepository.delete(findGarageById(id));
+    }
+
+    public GarageInfo update(Integer id, GarageUpdateCommand command) {
+        Garage garage = findGarageById(id);
+        modelMapper.map(command, garage);
+        return modelMapper.map(garage, GarageInfo.class);
     }
 }

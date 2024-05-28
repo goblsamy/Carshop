@@ -2,6 +2,7 @@ package com.example.carshop.controller;
 
 import com.example.carshop.dto.GarageCreateCommand;
 import com.example.carshop.dto.GarageInfo;
+import com.example.carshop.dto.GarageUpdateCommand;
 import com.example.carshop.service.GarageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,13 @@ public class GarageController {
         log.info("Http request, DELETE / /api/garage/{id} with variable: " + id);
         garageService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping("/{garageId}")
+    public ResponseEntity<GarageInfo> update(@PathVariable("garageId") Integer id,
+                                             @Valid @RequestBody GarageUpdateCommand command) {
+        log.info("Http request, PUT / /api/garage/{id} body " + command.toString() + "with variable: " + id);
+        GarageInfo garageInfo = garageService.update(id, command);
+        return new ResponseEntity<>(garageInfo, HttpStatus.OK);
     }
 }

@@ -3,6 +3,7 @@ package com.example.carshop.controller;
 import com.example.carshop.domain.CarType;
 import com.example.carshop.dto.CarInfo;
 import com.example.carshop.dto.CarCreateCommand;
+import com.example.carshop.dto.CarUpdateCommand;
 import com.example.carshop.service.CarService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,13 @@ public class CarController {
         log.info("HTTP request, DELETE / /api/car/{carId} with variable: " + id);
         carService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/{carId}")
+    public ResponseEntity<CarInfo> update(@PathVariable("carId") Integer id,
+                                          @Valid @RequestBody CarUpdateCommand command) {
+        log.info("HTTP request, PUT / /api/car/{carId} body: " + command.toString() + "with variable" + id);
+        CarInfo carInfo = carService.update(id, command);
+        return new ResponseEntity<>(carInfo, HttpStatus.OK);
     }
 }

@@ -2,6 +2,7 @@ package com.example.carshop.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,5 +24,6 @@ public class Garage {
     private String garageName;
 
     @OneToMany(mappedBy = "garage")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Car> cars;
 }

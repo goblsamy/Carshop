@@ -5,6 +5,7 @@ import com.example.carshop.domain.CarType;
 import com.example.carshop.domain.Garage;
 import com.example.carshop.dto.CarInfo;
 import com.example.carshop.dto.CarCreateCommand;
+import com.example.carshop.dto.CarUpdateCommand;
 import com.example.carshop.exceptionhandling.CarNotFoundException;
 import com.example.carshop.repository.CarRepository;
 import org.modelmapper.ModelMapper;
@@ -69,5 +70,13 @@ public class CarService {
         return carList.stream()
                 .map(car -> modelMapper.map(car, CarInfo.class))
                 .collect(Collectors.toList());
+    }
+
+    public CarInfo update(Integer id, CarUpdateCommand command) {
+        Car car = findById(id);
+        modelMapper.map(command, car);
+        return modelMapper.map(car, CarInfo.class);
+
+
     }
 }
